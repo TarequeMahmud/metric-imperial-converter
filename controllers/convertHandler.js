@@ -47,8 +47,8 @@ function ConvertHandler() {
     const spellOutUnitMap = {
       mi: "miles",
       km: "kilometers",
-      gal: "gallon",
-      L: "litre",
+      gal: "gallons",
+      L: "litres",
       lbs: "pounds",
       kg: "kilograms",
     };
@@ -73,7 +73,7 @@ function ConvertHandler() {
       result = null;
     }
 
-    return result;
+    return result ? parseFloat(result.toFixed(5)) : null;
   };
 
   this.getString = function (initNum, initUnit, returnNum, returnUnit) {
