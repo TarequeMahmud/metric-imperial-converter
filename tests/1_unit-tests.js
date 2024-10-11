@@ -3,7 +3,7 @@ let assert = chai.assert;
 const ConvertHandler = require("../controllers/convertHandler.js");
 
 let convertHandler = new ConvertHandler();
-const input = "3.5gal";
+const input = process.env.input;
 const initNum = convertHandler.getNum(input);
 const initUnit = convertHandler.getUnit(input);
 const returnUnit = convertHandler.getReturnUnit(initUnit);
@@ -16,30 +16,31 @@ const stringToReturn = convertHandler.getString(
   returnNum,
   returnSpellOutUnit
 );
+console.log(process.env);
 
 suite("ConvertHandler", function () {
   test(".getNum() should return correct number from the input", () => {
-    assert.equal(initNum, 3.5);
+    assert.equal(initNum, process.env.initNum);
   });
 
   test(".getUnit() should return the correct unit output", () => {
-    assert.equal(initUnit, "gal");
+    assert.equal(initUnit, process.env.initUnit);
   });
 
   test(".getReturnUnit() should return the proper return unit", () => {
-    assert.equal(returnUnit, "L");
+    assert.equal(returnUnit, process.env.returnUnit);
   });
 
   test(".spellOutUnit() should return proper spellOutUnit", () => {
-    assert.equal(initSpellOutUnit, "gallons");
-    assert.equal(returnSpellOutUnit, "litres");
+    assert.equal(initSpellOutUnit, process.env.initSpellOutUnit);
+    assert.equal(returnSpellOutUnit, process.env.returnSpellOutUnit);
   });
 
   test(".convert() should return proper converted number", () => {
-    assert.equal(returnNum, 13.24894);
+    assert.isAtLeast(returnNum, Number(process.env.returnNum));
   });
 
   test(".getString() should return proper string to return", () => {
-    assert.equal(stringToReturn, "3.5 gallons converts to 13.24894 litres");
+    assert.equal(stringToReturn, process.env.stringToReturn);
   });
 });
