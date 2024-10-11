@@ -16,7 +16,6 @@ const stringToReturn = convertHandler.getString(
   returnNum,
   returnSpellOutUnit
 );
-console.log(process.env);
 
 suite("ConvertHandler", function () {
   test(".getNum() should return correct number from the input", () => {

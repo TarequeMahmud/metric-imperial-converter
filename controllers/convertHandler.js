@@ -4,7 +4,7 @@ function ConvertHandler() {
     let result = input.match(fractionRegex)[0];
 
     if (!result) {
-      result = 1;
+      result = "1";
     }
 
     // Handle fractions like "2/3"
@@ -48,7 +48,7 @@ function ConvertHandler() {
       mi: "miles",
       km: "kilometers",
       gal: "gallons",
-      L: "litres",
+      L: "liters",
       lbs: "pounds",
       kg: "kilograms",
     };
@@ -63,12 +63,12 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     let result;
 
-    if (initUnit === "gal" || initUnit === "l") {
-      result = "gal" ? initNum * galToL : initNum / galToL;
+    if (initUnit === "gal" || initUnit === "L") {
+      result = initUnit === "gal" ? initNum * galToL : initNum / galToL;
     } else if (initUnit === "lbs" || initUnit === "kg") {
-      result = "lbs" ? initNum * lbsToKg : initNum / lbsToKg;
+      result = initUnit === "lbs" ? initNum * lbsToKg : initNum / lbsToKg;
     } else if (initUnit === "mi" || initUnit === "km") {
-      result = "mi" ? initNum * miToKm : initNum / miToKm;
+      result = initUnit === "mi" ? initNum * miToKm : initNum / miToKm;
     } else {
       result = null;
     }
