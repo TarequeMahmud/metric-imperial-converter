@@ -1,12 +1,19 @@
 function ConvertHandler() {
   this.getNum = function (input) {
-    let result = input.match(/[0-9]+/g);
-    if (result === null) {
+    let fractionRegex = /^(\d+(\.\d+)?(\/\d+(\.\d+)?)?)?/; // Captures decimals and fractions
+    let result = input.match(fractionRegex)[0];
+
+    if (!result) {
       result = 1;
-      return result;
     }
 
-    return Number(result.join(""));
+    // Handle fractions like "2/3"
+    if (result.includes("/")) {
+      let values = result.split("/");
+      result = Number(values[0]) / Number(values[1]);
+    }
+
+    return Number(result);
   };
 
   this.getUnit = function (input) {
