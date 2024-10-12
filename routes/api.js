@@ -10,34 +10,32 @@ module.exports = function (app) {
 
     const initNum = convertHandler.getNum(input);
     const initUnit = convertHandler.getUnit(input);
-    if (initNum && initUnit) {
-      const returnUnit = convertHandler.getReturnUnit(initUnit);
-      const initSpellOutUnit = convertHandler.spellOutUnit(initUnit);
-      const returnSpellOutUnit = convertHandler.spellOutUnit(returnUnit);
-      const returnNum = convertHandler.convert(initNum, initUnit);
-      const stringToReturn = convertHandler.getString(
-        initNum,
-        initSpellOutUnit,
-        returnNum,
-        returnSpellOutUnit
-      );
-      res.json({
-        initNum: initNum,
-        initUnit: initUnit,
-        returnNum: returnNum,
-        returnUnit: returnUnit,
-        string: stringToReturn,
-      });
-    } else {
-      if (!initNum && !initUnit) {
-        return res.json("invalid number and unit");
-      }
-      if (!initNum) {
-        return res.json("invalid number");
-      }
-      if (!initUnit) {
-        return res.json("invalid unit");
-      }
+    const returnUnit = convertHandler.getReturnUnit(initUnit);
+    if (initNum === null && initUnit === null) {
+      return res.send("invalid number and unit");
     }
+    if (initNum === null) {
+      return res.send("invalid number");
+    }
+    if (initUnit === null) {
+      return res.send("invalid unit");
+    }
+
+    const initSpellOutUnit = convertHandler.spellOutUnit(initUnit);
+    const returnSpellOutUnit = convertHandler.spellOutUnit(returnUnit);
+    const returnNum = convertHandler.convert(initNum, initUnit);
+    const stringToReturn = convertHandler.getString(
+      initNum,
+      initSpellOutUnit,
+      returnNum,
+      returnSpellOutUnit
+    );
+    res.json({
+      initNum: initNum,
+      initUnit: initUnit,
+      returnNum: returnNum,
+      returnUnit: returnUnit,
+      string: stringToReturn,
+    });
   });
 };
