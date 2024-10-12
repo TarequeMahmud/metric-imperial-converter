@@ -1,19 +1,21 @@
 function ConvertHandler() {
   this.getNum = function (input) {
-    let fractionRegex = /^(\d+(\.\d+)?(\/\d+(\.\d+)?)?)?/; // Captures decimals and fractions
-    let result = input.match(fractionRegex)[0];
-
-    if (!result) {
-      result = "1";
+    let result;
+    if (/^[a-zA-Z]+$/g.test(input)) {
+      result = 1;
+      return result;
     }
+    const number = input.match(
+      /^[0-9]+(?![./])|^[0-9]+([/.][0-9]+(?![./]))|^[0-9]+(.[0-9]+)?\/[0-9]+(.[0-9]+)?(?![./])/g
+    );
 
-    // Handle fractions like "2/3"
+    if (number === null) return null;
+    result = number[0];
     if (result.includes("/")) {
-      let values = result.split("/");
-      result = Number(values[0]) / Number(values[1]);
+      let numberArray = result.split("/");
+      result = numberArray[0] / numberArray[1];
     }
-
-    return Number(result);
+    return isNaN(result) ? null : Number(result);
   };
 
   this.getUnit = function (input) {
@@ -23,6 +25,8 @@ function ConvertHandler() {
     }
     unit = unit.join("");
     unit = unit.toUpperCase() === "L" ? unit.toUpperCase() : unit.toLowerCase();
+    const unitArray = ["L", "gal", "mi", "km", "lbs", "kg"];
+    if (unitArray.indexOf(unit) === -1) return null;
     return unit;
   };
 
